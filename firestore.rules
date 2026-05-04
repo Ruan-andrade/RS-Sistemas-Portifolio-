@@ -1,0 +1,27 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions to improve readability and reuse of logic.
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    // A service request can be read by anyone if they have the public link,
+    // but only the owner can read all of them.
+    match /service_requests/{serviceRequestId} {
+      allow create: if true; // Anyone can submit a briefing
+      
+      // Admins can manage all requests
+      allow list, get, update, delete: if isSignedIn();
+
+      // For the public proposal page, allow anyone to read a specific document
+      // and allow them to update only the status and feedback fields.
+      allow get: if !isSignedIn();
+      allow update: if !isSignedIn() 
+                    && request.resource.data.keys().hasAll(['status', 'customerFeedback'])
+                    && request.resource.data.size() == 2;
+    }
+  }
+}

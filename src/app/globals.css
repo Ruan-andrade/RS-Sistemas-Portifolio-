@@ -1,0 +1,94 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 165 13% 95%; /* #F0F4F3 */
+    --foreground: 240 10% 3.9%;
+    --card: 165 13% 95%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 165 13% 95%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 181 49% 43%; /* #38A3A5 */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 182 28% 41%; /* #498587 */
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 181 49% 43%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 0 0% 4%; /* #0a0a0a */
+    --foreground: 0 0% 90%; /* #e5e5e5 */
+    --card: 0 0% 9%; /* #171717 */
+    --card-foreground: 0 0% 90%;
+    --popover: 0 0% 4%;
+    --popover-foreground: 0 0% 90%;
+    --primary: 157 100% 50%; /* #00ff9d */
+    --primary-foreground: 0 0% 4%; /* #0a0a0a */
+    --secondary: 0 0% 20%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 20%;
+    --muted-foreground: 0 0% 64%; /* #a3a3a3 */
+    --accent: 157 100% 50%;
+    --accent-foreground: 0 0% 4%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 20%; /* #333333 */
+    --input: 0 0% 20%;
+    --ring: 157 100% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    scroll-behavior: smooth;
+  }
+  
+  ::selection {
+    @apply bg-primary text-primary-foreground;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--card));
+  }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--border));
+    border-radius: 4px;
+  }
+  .dark ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--primary));
+  }
+  html:not(.dark) ::-webkit-scrollbar-thumb {
+    background: #9ca3af;
+  }
+
+  .glow-hover {
+    @apply transition-all duration-300;
+  }
+  .dark .glow-hover:hover {
+    box-shadow: 0 0 20px 2px hsl(var(--primary) / 0.2);
+    border-color: hsl(var(--primary));
+  }
+  .light .glow-hover:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border-color: hsl(var(--primary));
+  }
+}

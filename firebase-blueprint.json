@@ -1,0 +1,78 @@
+{
+  "entities": {
+    "ServiceRequest": {
+      "title": "Service Request",
+      "description": "A request for a service from a customer.",
+      "type": "object",
+      "properties": {
+        "customerName": {
+          "type": "string",
+          "description": "The name of the customer."
+        },
+        "customerEmail": {
+          "type": "string",
+          "description": "The email of the customer.",
+          "format": "email"
+        },
+        "serviceType": {
+          "type": "string",
+          "description": "The type of service requested."
+        },
+        "details": {
+          "type": "string",
+          "description": "A JSON string containing the full briefing data."
+        },
+        "status": {
+          "type": "string",
+          "description": "The current status of the request.",
+          "enum": [
+            "Pending",
+            "Quoted",
+            "Approved",
+            "Rejected",
+            "In Progress",
+            "Completed",
+            "Cancelled"
+          ]
+        },
+        "requestDate": {
+          "type": "string",
+          "description": "The date the request was made.",
+          "format": "date-time"
+        },
+        "publicId": {
+          "type": "string",
+          "description": "A unique public ID for sharing the quote."
+        },
+        "quoteDetails": {
+          "type": "string",
+          "description": "A JSON string containing the generated quote data (price, timeline, etc.)."
+        },
+        "customerFeedback": {
+            "type": "string",
+            "description": "Feedback or comments from the customer on the quote."
+        }
+      },
+      "required": [
+        "customerName",
+        "customerEmail",
+        "serviceType",
+        "status",
+        "requestDate"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "email-password"
+    ]
+  },
+  "firestore": {
+    "/service_requests/{serviceRequestId}": {
+      "schema": {
+        "$ref": "#/entities/ServiceRequest"
+      },
+      "description": "Stores all incoming service requests from the briefing form."
+    }
+  }
+}
